@@ -301,9 +301,9 @@ def getMode(hash)
     @modes.push('5100') # Half MD5
   elsif hash =~ /\$\d+\$.{53}$/
     @modes.push('3200')	# bcrypt, Blowfish(OpenBSD)
-  elsif %r{^\$5\$(rounds=\d+\$)?[\.\/\w]{0,16}\$[\.\/\w]{0,43}$}.match?(hash)
+  elsif hash =~ %r{^\$5\$(rounds=\d+\$)?[\.\/\w]{0,16}\$[\.\/\w]{0,43}$}
     @modes.push('7400')	# sha256crypt, SHA256(Unix)
-  elsif %r{^\$6\$(rounds=\d+\$)?[a-z\d\/\.]{0,16}\$[a-z\d\/\.]{86}$}.match?(hash)
+  elsif hash =~ %r{^\$6\$(rounds=\d+\$)?[a-z\d\/\.]{0,16}\$[a-z\d\/\.]{86}$}
     @modes.push('1800')	# sha512crypt, SHA512(Unix)
   elsif hash =~ %r{^[\.\/0-9A-Za-z]{13}$}
     @modes.push('1500')	# descrypt, DES(Unix), Traditional DES
@@ -315,7 +315,7 @@ def getMode(hash)
     @modes.push('400')  # phppass, WordPress(MD5), Joomla (MD5)
   elsif hash =~ /^\$H\$/
     @modes.push('400')  # phppass, phpBB3 (MD5)
-  elsif %r{^3u\+U[\w\+\/\=]+$}.match?(hash)
+  elsif hash =~ %r{^3u\+U[\w\+\/\=]+$}
     @modes.push('501')  # Juniper IVE
   elsif hash =~ /^\$BLAKE2\$/
     @modes.push('600')  # Blake2b-512
