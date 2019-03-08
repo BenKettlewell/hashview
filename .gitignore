@@ -58,3 +58,4 @@ logs/jobs/*
 *.restore
 *.idea
 dump.rdb
+.env
